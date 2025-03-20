@@ -110,3 +110,17 @@ class TaskSerializerV2(serializers.ModelSerializer):
             Subtask.objects.create(task=task, **subtask_data)
 
         return task
+
+
+class TaskSerializerOriginal(serializers.ModelSerializer):
+    subtasks = SubtaskSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Task
+        fields = '__all__'
+        
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
+    
+    def create(self, validated_data):
+        return super().create(validated_data)

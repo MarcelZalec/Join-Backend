@@ -10,7 +10,8 @@ router.register(r'contacts', ContactsView)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('tasks/<int:pk>/subtasks', SubTaskView.as_view({'get': 'list'})),
+    # path('tasks/<int:pk>/subtasks/', SubTaskView.as_view({'get': 'list', 'post': 'create', 'put': 'update', 'delete': 'destroy'})),
+    path('tasks/<int:pk>/subtasks/', SubTaskView.as_view()),
     # path('contacts/', ContactsView.as_view())
     # path('tasks/', TasksViewList.as_view()),
     # path('tasks/<int:pk>', TaskSingleView.as_view()),
