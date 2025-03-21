@@ -78,11 +78,13 @@ WSGI_APPLICATION = 'join_backend.wsgi.application'
 CSRF_TRUSTED_ORIGINS = [
   'http://127.0.0.1:5500',
   'http://localhost:5500',
+  'https://test.marcelzalec.at',
 ]
 
 CORS_ALLOWED_ORIGINS = [
   'http://127.0.0.1:5500',
   'http://localhost:5500',
+  'https://test.marcelzalec.at',
 ]
 
 CORS_ALLOW_HEADERS = [
