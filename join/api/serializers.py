@@ -53,7 +53,7 @@ class TaskSerializer(serializers.ModelSerializer):
         # Update assigned users correctly (ManyToMany)
         if assigned_to_data is not None:
             # Expecting a list of IDs
-            instance.assigned(assigned_to_data)
+            instance.assigned.set(assigned_to_data)
 
         # Update subtasks correctly
         instance.subtasks.all().delete()  # Clear old subtasks

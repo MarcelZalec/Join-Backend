@@ -1,5 +1,5 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
-EXTRA_METHODS = SAFE_METHODS + ('POST', 'DELETE', 'PUT')
+EXTRA_METHODS = SAFE_METHODS + ('POST', 'DELETE', 'PUT', 'PATCH')
 
 class IsStaffOrReadOnly(BasePermission):
     def has_permission(self, request, view):
