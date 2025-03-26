@@ -53,7 +53,7 @@ class GuestLoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        print(f"Das ist der Token: {request.headers.get('Authorization')}")
+        # print(f"Das ist der Token: {request.headers.get('Authorization')}")
         # Token aus dem Authorization Header extrahieren
         auth_header = request.headers.get('Authorization')
         if not auth_header or not auth_header.startswith('Token '):
