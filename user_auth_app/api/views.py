@@ -4,14 +4,14 @@ from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
-from .serializers import RegistrationSerializer
+from rest_framework import serializers
+from .serializers import RegistrationSerializer, LoginSerializer
 
 class CustomLoginView(ObtainAuthToken):
     permission_classes = [AllowAny]
     
     def post(self, request):
-        serializer = self.serializer_class(data = request.data)
-        data = {}
+        serializer = LoginSerializer(data = request.data)
         
         if serializer.is_valid():
             user = serializer.validated_data['user']
@@ -31,29 +31,27 @@ class RegistrationView(APIView):
     permission_classes = [AllowAny]
     
     def post(self, request):
-        serializer = RegistrationSerializer(data = request.data)
-        data = {}
-        
+        serializer = RegistrationSerializer(data=request.data)
+
         if serializer.is_valid():
-            saved_account = serializer.save()
-            token, created = Token.objects.get_or_create(user = saved_account)
-            print(f"Das ist der accsess Token {token}")
-            data = {
-                'token': token.key,
-                'username': saved_account.username,
-                'email': saved_account.email
-            }
+            try:
+                saved_account = serializer.save()
+                token, created = Token.objects.get_or_create(user=saved_account)
+                return Response({
+                    'token': token.key,
+                    'username': saved_account.username,
+                    'email': saved_account.email
+                })
+            except serializers.ValidationError as e:
+                return Response(e.detail, status=400)
         else:
-            data = serializer.errors
-        
-        return Response(data)
+            return Response(serializer.errors, status=400)
 
 
 class GuestLoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        # print(f"Das ist der Token: {request.headers.get('Authorization')}")
         # Token aus dem Authorization Header extrahieren
         auth_header = request.headers.get('Authorization')
         if not auth_header or not auth_header.startswith('Token '):

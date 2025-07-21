@@ -2,10 +2,6 @@ from django.db import models
 import datetime
 
 
-class User(models.Model):
-    name = models.CharField(max_length=50)
-    email = models.EmailField((""), max_length=254)
-
 
 class Contacts(models.Model):
     color = models.TextField(max_length=50, default="#1FD7C1")
