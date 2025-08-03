@@ -27,12 +27,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-a1czfzaln8vk#nt&^k8j95kcbac+dauh_c+2j@%2bb&feh-6kf")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+DEBUG = os.getenv('DEBUG').lower() == 'true'
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", default="localhost").split(",")
 CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS", default="http://localhost:4200").split(",")
 
 CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", default="http://localhost:4200").split(",")
+
+CORS_ALLOW_HEADERS = [
+    'authorization',
+    'content-type',
+]
 
 
 # Application definition
@@ -84,23 +89,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'join_backend.wsgi.application'
-
-CSRF_TRUSTED_ORIGINS = [
-  'http://127.0.0.1:5500',
-  'http://localhost:5500',
-  'https://test.marcelzalec.at',
-]
-
-CORS_ALLOWED_ORIGINS = [
-  'http://127.0.0.1:5500',
-  'http://localhost:5500',
-  'https://test.marcelzalec.at',
-]
-
-CORS_ALLOW_HEADERS = [
-    'authorization',
-    'content-type',
-]
 
 
 # Database

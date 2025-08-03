@@ -10,7 +10,7 @@ class CustomUser(AbstractUser):
     is_staff = models.BooleanField(default=False)
     
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = [""]
+    REQUIRED_FIELDS = []
     
     def __str__(self):
         """

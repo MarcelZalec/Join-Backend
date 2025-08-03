@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from user_auth_app.models import CustomUser
-# from django.contrib.auth.models import User
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -9,7 +8,6 @@ class LoginSerializer(serializers.Serializer):
     def validate(self, attrs):
         em = attrs.get('email')
         pw = attrs.get('password')
-        print(attrs)
         user = CustomUser.objects.filter(email=em).first()
         if user and user.is_active and user.check_password(pw):
             attrs['user'] = user  # Hier wird der validierte Benutzer gespeichert
